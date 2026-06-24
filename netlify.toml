@@ -1,0 +1,11 @@
+[build]
+  command = "bun run build"
+  publish = "dist/client"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+  NODE_VERSION = "20"
+
+# Nitro's "netlify" preset emite la función en .netlify/functions-internal
+# y publica los assets estáticos en dist/client. Netlify detecta automáticamente
+# las funciones generadas por Nitro, no hace falta configurar redirects manuales.
