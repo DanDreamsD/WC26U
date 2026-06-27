@@ -150,5 +150,19 @@
 }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
 
+@keyframes slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 1rem)); }
+}
+.animate-slide-left { animation: slide-left 30s linear infinite; }
+
+.alliance-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.alliance-item:hover {
+  filter: brightness(1.4) drop-shadow(0 0 20px oklch(0.50 0.30 305 / 0.6));
+  transform: scale(1.1);
+}
+
 html { scroll-behavior: smooth; }
 
