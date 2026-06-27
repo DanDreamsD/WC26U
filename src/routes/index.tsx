@@ -49,7 +49,14 @@ const testimonios = [
   { name: "Flor Mamani", role: "Participante de las ediciones IV (2024) y V (2025)", text: "He tenido la oportunidad de asistir a más de una edición del CEIISE y puedo afirmar que cada año el congreso eleva su nivel. No solo brinda conocimientos técnicos, sino que también inspira a los estudiantes a desarrollar habilidades de liderazgo, trabajo en equipo y visión profesional. Es un evento que deja huella, ya que está constantemente actualizando sus ejes temáticos y contribuye significativamente a nuestra formación iJntegral, y espero con ansias poder participar de esta nueva edición, de las visitas técnicas, y del crédito extracurricular." },
 ];
 
-const alianzas = [""];
+const alianzas = [
+  { name: "Empresa 1", logo: "" },
+  { name: "Empresa 2", logo: "" },
+  { name: "Empresa 3", logo: "" },
+  { name: "Empresa 4", logo: "" },
+  { name: "Empresa 5", logo: "" },
+  { name: "Empresa 6", logo: "" },
+];
 
 function HomePage() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE);
@@ -128,7 +135,7 @@ function HomePage() {
       {/* Ejes */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-2xl mb-12">
+          <div className="max-w-2xl mb-12 mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-3">Ejes <span className="gradient-text">temáticos</span></h2>
             <p className="text-muted-foreground">Líneas de investigación principales del congreso.</p>
           </div>
@@ -172,16 +179,29 @@ function HomePage() {
       </section>
 
       {/* Alianzas */}
-      <section className="py-16">
+      <section className="py-16 w-screen relative left-1/2 right-1/2 -mx-[50vw]">
         <div className="mx-auto max-w-7xl px-6">
-          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-8"></p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
-            {alianzas.map((a) => (
-              <span key={a} className="font-display font-semibold text-lg text-muted-foreground/70 hover:text-foreground transition-colors">
-                {a}
-              </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Próximos <span className="gradient-text">aliados</span></h2>
+          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Proximamente</p>
+        </div>
+        
+        <div className="relative w-full overflow-hidden">
+          <div className="animate-slide-left flex gap-8 py-8">
+            {[...alianzas, ...alianzas].map((a, idx) => (
+              <div key={idx} className="alliance-item flex-shrink-0 flex flex-col items-center gap-3 min-w-max cursor-pointer px-4">
+                <div className="w-24 h-24 rounded-lg bg-muted/20 border border-border flex items-center justify-center">
+                  {a.logo ? (
+                    <img src={a.logo} alt={a.name} className="w-20 h-20 object-contain" />
+                  ) : (
+                    <span className="text-xs text-muted-foreground text-center px-2">Logo aquí</span>
+                  )}
+                </div>
+                <span className="font-display font-semibold text-sm text-foreground/80">{a.name}</span>
+              </div>
             ))}
           </div>
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background via-background to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background via-background to-transparent z-10" />
         </div>
       </section>
 
