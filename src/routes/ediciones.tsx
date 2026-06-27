@@ -22,12 +22,12 @@ export const Route = createFileRoute("/ediciones")({
 
 const stats = [
   { v: "+200", l: "Asistentes" },
-  { v: "7", l: "Empresas" },
-  { v: "7", l: "Ponentes" },
-  { v: "3", l: "Paises" },
+  { v: "12", l: "Empresas" },
+  { v: "24", l: "Ponentes" },
+  { v: "10", l: "Aliados institucionales" },
 ];
 
-const gallery = [grupal, speaker1, panel, networking, panel,visita_almacenes];
+const gallery = [grupal, speaker1, networking, panel,visita_almacenes, merch];
 
 export function PastPage() {
   return (
