@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import auditorium from "@/assets/auditorium.jpg";
 import speaker1 from "@/assets/speaker1.jpg";
 import panel from "@/assets/panel.jpg";
@@ -21,15 +22,67 @@ export const Route = createFileRoute("/ediciones")({
 });
 
 const stats = [
-  { v: "+200", l: "Asistentes" },
-  { v: "12", l: "Empresas" },
-  { v: "24", l: "Ponentes" },
-  { v: "10", l: "Aliados institucionales" },
+  { value: 200, prefix: "+", label: "Asistentes" },
+  { value: 12, label: "Empresas" },
+  { value: 24, label: "Ponentes" },
+  { value: 10, label: "Aliados institucionales" },
 ];
 
 const gallery = [grupal, speaker1, networking, panel,visita_almacenes, merch];
 
+function AnimatedNumber({ value, prefix = "", duration = 1400, isActive = false }: { value: number; prefix?: string; duration?: number; isActive?: boolean }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isActive) {
+      setDisplayValue(0);
+      return;
+    }
+
+    let animationFrame = 0;
+    let startTime: number | null = null;
+
+    const step = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(Math.floor(value * easedProgress));
+
+      if (progress < 1) {
+        animationFrame = window.requestAnimationFrame(step);
+      }
+    };
+
+    animationFrame = window.requestAnimationFrame(step);
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [value, duration, isActive]);
+
+  return <>{`${prefix}${displayValue}`}</>;
+}
+
 export function PastPage() {
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+  const statsSectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = statsSectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsStatsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
   return (
     <div>
       <section className="py-20">
@@ -45,12 +98,14 @@ export function PastPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12">
+      <section ref={statsSectionRef} className="py-12">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-2 md:grid-cols-4 gap-5">
           {stats.map((s) => (
-            <div key={s.l} className="glass-card rounded-2xl p-8 text-center">
-              <div className="text-5xl md:text-6xl font-bold gradient-text mb-2 font-display">{s.v}</div>
-              <div className="text-sm uppercase tracking-wider text-muted-foreground">{s.l}</div>
+            <div key={s.label} className="glass-card rounded-2xl p-8 text-center">
+              <div className="text-5xl md:text-6xl font-bold gradient-text mb-2 font-display">
+                <AnimatedNumber value={s.value} prefix={s.prefix} isActive={isStatsVisible} />
+              </div>
+              <div className="text-sm uppercase tracking-wider text-muted-foreground">{s.label}</div>
             </div>
           ))}
         </div>

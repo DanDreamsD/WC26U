@@ -1,6 +1,7 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import iconLogo from "../assets/iconoceiiseweb.svg";
 
 const navItems = [
   { to: "/", label: "Inicio" },
@@ -38,7 +39,7 @@ export function SiteLayout() {
       >
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-            <span className="inline-block h-8 w-8 rounded-lg gradient-brand glow" />
+            <img src={iconLogo} alt="CEIISE 2026" className="h-8 w-8 rounded-lg object-cover" />
             <span className="gradient-text">CEIISE 2026</span>
           </Link>
 
@@ -103,7 +104,7 @@ export function SiteLayout() {
         <div className="mx-auto max-w-7xl px-6 py-12 grid gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 font-display font-bold text-lg mb-3">
-              <span className="inline-block h-8 w-8 rounded-lg gradient-brand" />
+              <img src={iconLogo} alt="CEIISE 2026" className="h-8 w-8 rounded-lg object-cover" />
               <span className="gradient-text">CEIISE 2026</span>
             </div>
             <p className="text-sm text-muted-foreground">

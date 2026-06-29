@@ -91,6 +91,14 @@ function HomePage() {
           <a href="#programa" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:bg-secondary transition-colors">
             Ver programa
           </a>
+          <a
+            href="https://linktr.ee/ceiise2026.unsa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:bg-secondary transition-colors"
+          >
+            Accede al linktree
+          </a>
         </div>
 
         {/* Countdown */}
@@ -188,15 +196,17 @@ function HomePage() {
         <div className="relative w-full overflow-hidden">
           <div className="animate-slide-left flex gap-8 py-8">
             {[...alianzas, ...alianzas].map((a, idx) => (
-              <div key={idx} className="alliance-item flex-shrink-0 flex flex-col items-center gap-3 min-w-max cursor-pointer px-4">
-                <div className="w-24 h-24 rounded-lg bg-muted/20 border border-border flex items-center justify-center">
+              <div key={idx} className="alliance-item flex-shrink-0 flex items-center gap-3 min-w-max cursor-pointer px-4">
+                <div className="w-16 h-16 rounded-lg bg-muted/20 border border-border flex items-center justify-center shrink-0">
                   {a.logo ? (
-                    <img src={a.logo} alt={a.name} className="w-20 h-20 object-contain" />
+                    <img src={a.logo} alt={a.name} className="w-12 h-12 object-contain" />
                   ) : (
-                    <span className="text-xs text-muted-foreground text-center px-2">Logo aquí</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground text-center px-2">Logo</span>
                   )}
                 </div>
-                <span className="font-display font-semibold text-sm text-foreground/80">{a.name}</span>
+                <span className="alliance-text font-display font-semibold text-sm uppercase tracking-[0.25em] text-foreground/80">
+                  {a.name}
+                </span>
               </div>
             ))}
           </div>
