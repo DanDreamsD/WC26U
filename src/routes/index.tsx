@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Calendar, MapPin, ArrowRight, Sparkles, Brain, Truck, Users, Quote } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Sparkles, Brain, Truck, Quote } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import auditorium from "@/assets/auditorium.jpg";
 import { AboutPage } from "./sobre";
@@ -35,6 +35,74 @@ function useCountdown(target: Date) {
   const minutes = Math.floor((diff / 60000) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
   return { days, hours, minutes, seconds };
+}
+
+/** Animates each digit change with a flip-in effect */
+function AnimatedDigit({ value }: { value: number }) {
+  const formatted = String(value).padStart(2, "0");
+  return (
+    <span className="countdown-digit">
+      <span key={formatted} className="countdown-digit-value">
+        {formatted}
+      </span>
+    </span>
+  );
+}
+
+/** Attaches IntersectionObserver to trigger .reveal animations on scroll */
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = ref.current ?? document;
+    const els = root instanceof Document
+      ? document.querySelectorAll(".reveal")
+      : (root as HTMLElement).querySelectorAll(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
+
+/** Full-screen loading splash shown once on first render */
+function LoadingScreen({ onDone }: { onDone: () => void }) {
+  const [hiding, setHiding] = useState(false);
+  const onDoneRef = useRef(onDone);
+  
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setHiding(true);
+      setTimeout(() => {
+        onDoneRef.current();
+      }, 650);
+    }, 2000);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div id="ceiise-loader" className={hiding ? "loader-hidden" : ""}>
+      <div className="loader-ring" />
+      <div className="loader-text">
+        {"CEIISE".split("").map((ch, i) => (
+          <span key={i}>{ch}</span>
+        ))}
+      </div>
+      <p className="loader-sub">Congreso Estudiantil IISE · 2026</p>
+    </div>
+  );
 }
 
 const ejes = [
@@ -89,9 +157,12 @@ const whatsappContacts = [
 function HomePage() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE);
   const [whatsappOpen, setWhatsappOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const pageRef = useScrollReveal();
 
   return (
-    <div className="relative">
+    <div className="relative" ref={pageRef}>
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -131,7 +202,7 @@ function HomePage() {
         </div>
 
         {/* Countdown */}
-        <div className="glass-card rounded-2xl p-8 w-full max-w-lg">
+        <div className="glass-card rounded-2xl p-8 w-full max-w-lg reveal reveal-delay-4">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">El congreso inicia en</p>
           <div className="grid grid-cols-4 gap-3">
             {[
@@ -143,7 +214,7 @@ function HomePage() {
               <div key={b.l} className="text-center">
                 <div className="rounded-xl gradient-brand p-4 mb-2 glow">
                   <span className="text-3xl md:text-4xl font-bold font-display tabular-nums">
-                    {String(b.v).padStart(2, "0")}
+                    <AnimatedDigit value={b.v} />
                   </span>
                 </div>
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">{b.l}</span>
@@ -157,7 +228,7 @@ function HomePage() {
       {/* Ejes */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-3xl mb-12 mx-auto text-center">
+          <div className="max-w-3xl mb-12 mx-auto text-center reveal">
             <h2 className="text-4xl md:text-6xl font-bold mb-4">
               Ejes <span className="gradient-text">temáticos</span>
             </h2>
@@ -171,11 +242,12 @@ function HomePage() {
               ];
               const iconStyles = ["bg-white/15", "bg-black/10", "bg-white/15"];
               const textStyles = ["text-white/85", "text-slate-800", "text-white/85"];
+              const delays = ["reveal-delay-1", "reveal-delay-2", "reveal-delay-3"] as const;
 
               return (
                 <div
                   key={e.title}
-                  className={`rounded-[28px] p-8 shadow-xl transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl ${cardStyles[index]}`}
+                  className={`reveal ${delays[index]} rounded-[28px] p-8 shadow-xl transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl ${cardStyles[index]}`}
                 >
                   <div className={`h-16 w-16 rounded-2xl mb-6 flex items-center justify-center ${iconStyles[index]}`}>
                     <e.icon className="h-8 w-8" />
@@ -193,13 +265,13 @@ function HomePage() {
 
 
       {/* Alianzas */}
-      <section className="py-16 w-screen relative left-1/2 right-1/2 -mx-[50vw]">
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="py-16 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 reveal">
           <h2 className="text-3xl md:text-6xl font-bold text-center mb-4">Nuestras <span className="gradient-text">alianzas</span></h2>
           <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Próximamente</p>
         </div>
-        
-        <div className="relative w-full overflow-hidden">
+
+        <div className="relative overflow-hidden">
           <div className="animate-slide-left flex gap-8 py-8">
             {[...alianzas, ...alianzas].map((a, idx) => (
               <div key={idx} className="alliance-item flex-shrink-0 flex items-center gap-3 min-w-max cursor-pointer px-4">
@@ -223,7 +295,7 @@ function HomePage() {
 
       {/* CTA Final */}
       <section className="py-20">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-5xl px-6 reveal">
           <div className="relative animate-float rounded-[32px] border border-white/20 bg-[linear-gradient(145deg,#6105A3_100%,#d9b6f2_100%)] p-12 text-center text-white shadow-[0_25px_80px_rgba(96,5,163,0.35)] overflow-hidden md:p-16">
             <div className="absolute inset-0 opacity-30 mix-blend-screen">
               <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-white/25 blur-3xl" />
@@ -264,12 +336,12 @@ function HomePage() {
           <div className="absolute inset-0 bg-background/80" />
         </div>
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center reveal">
             Lo que dicen de la <span className="gradient-text">edición 2025</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-5">
-            {testimonios.map((t) => (
-              <figure key={t.name} className="glass-card rounded-2xl p-6">
+            {testimonios.map((t, i) => (
+              <figure key={t.name} className={`glass-card rounded-2xl p-6 reveal reveal-delay-${(i + 1) as 1 | 2 | 3}`}>
                 <Quote className="h-8 w-8 text-primary mb-4" />
                 <blockquote className="text-foreground/90 mb-6">"{t.text}"</blockquote>
                 <figcaption>
