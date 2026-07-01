@@ -38,10 +38,10 @@ export function ProgramPage() {
       {/* SECCIÓN HERO */}
       <section className="py-20">
         <div className="mx-auto max-w-4xl px-6 text-center">
-          <p className="text-lg md:text-3xl uppercase tracking-widest text-primary mb-8 font-semibold">Programa</p>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">El <span className="gradient-text">corazón</span> del evento</h1>
+          <p className="text-lg md:text-3xl uppercase tracking-widest text-primary mb-8 font-semibold">Programación CEIISE</p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">¿Qué <span className="gradient-text">encontrarás</span> este 2026?</h1>
           <p className="text-lg text-muted-foreground mb-8">
-            5 días de aprendizaje, 10+ ponencias, 3 visitas técnicas, talleres especializados y oportunidades de conexión con profesionales y empresas.
+            5 días de aprendizaje, 10+ ponencias, 3 visitas técnicas de tu elección, talleres especializados y oportunidades de conexión con profesionales y empresas.
           </p>
           <a
             href="https://linktr.ee/ceiise2026.unsa"
@@ -153,7 +153,7 @@ export function ProgramPage() {
       {/* SECCIÓN PONENTES */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-center">
             <span className="gradient-text">Ponentes</span> confirmados
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">

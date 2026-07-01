@@ -12,6 +12,12 @@ const navItems = [
   { to: "/#contacto", label: "Contacto" },
 ];
 
+const announcementMessages = [
+  "Estamos en la etapa 2 de ventas",
+  "Aprovecha los precios especiales",
+  "Inscripciones abiertas para el evento",
+];
+
 export function SiteLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
@@ -37,6 +43,19 @@ export function SiteLayout() {
           scrolled ? "glass-card border-b" : "bg-transparent"
         }`}
       >
+        <div className="overflow-hidden border-b border-white/10 bg-[linear-gradient(90deg,#840CD7_0%,#6105A3_45%,#3C0465_100%)]">
+          <div className="mx-auto max-w-7xl px-6 py-2">
+            <div className="flex items-center gap-8 whitespace-nowrap text-sm font-medium text-white/95 animate-marquee">
+              {announcementMessages.concat(announcementMessages).map((message, index) => (
+                <span key={`${message}-${index}`} className="inline-flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                  <span>{message}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
             <img src={iconLogo} alt="CEIISE 2026" className="h-8 w-8 rounded-lg object-cover" />
@@ -96,7 +115,7 @@ export function SiteLayout() {
         )}
       </header>
 
-      <main className="flex-1 pt-16">
+      <main className="flex-1 pt-24 md:pt-28">
         <Outlet />
       </main>
 

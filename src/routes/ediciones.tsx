@@ -92,7 +92,7 @@ export function PastPage() {
             Una <span className="gradient-text">trayectoria</span> que respalda
           </h1>
           <p className="text-lg text-muted-foreground">
-            Memorias y datos de la edición CEIISE 2025.
+            Fotografías y datos de la edición CEIISE 2025.
           </p>
         </div>
       </section>

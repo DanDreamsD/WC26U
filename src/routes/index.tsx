@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       { title: "CEIISE 2026 — Liderazgo, Innovación y Logística Inteligente" },
       { name: "description", content: "Únete al Congreso Estudiantil IISE 2026. Tres días de conferencias, talleres y networking con líderes en innovación y logística inteligente." },
       { property: "og:title", content: "CEIISE 2026 — Congreso Estudiantil IISE" },
-      { property: "og:description", content: "Liderazgo, Innovación y Logística Inteligente. Marzo 2026." },
+      { property: "og:description", content: "Liderazgo, Innovación y Logística Inteligente. Agosto 2026." },
     ],
   }),
   component: HomePage,
@@ -58,11 +58,40 @@ const alianzas = [
   { name: "Empresa 6", logo: "" },
 ];
 
+const whatsappContacts = [
+  {
+    name: "Carlos Zuñiga",
+    phone: "+51 955 119 544",
+    link: "https://api.whatsapp.com/send/?phone=51955119544&text=Hola+CEIISE%2C+me+interesa+asistir+al+congreso+y+quisiera+m%C3%A1s+informaci%C3%B3n+sobre+las+entradas.&type=phone_number&app_absent=0",
+  },
+  {
+    name: "Nicole Paco",
+    phone: "+51 972 471 004",
+    link: "https://api.whatsapp.com/send/?phone=51972471004&text=Hola+CEIISE%2C+me+interesa+asistir+al+congreso+y+quisiera+m%C3%A1s+informaci%C3%B3n+sobre+las+entradas.&type=phone_number&app_absent=0",
+  },
+  {
+    name: "Jonathan Quispe",
+    phone: "+51 940 020 483",
+    link: "https://api.whatsapp.com/send/?phone=51940020483&text=Hola+CEIISE%2C+me+interesa+asistir+al+congreso+y+quisiera+m%C3%A1s+informaci%C3%B3n+sobre+las+entradas.&type=phone_number&app_absent=0",
+  },
+  {
+    name: "Diago Pari",
+    phone: "+51 912 599 839",
+    link: "https://api.whatsapp.com/send/?phone=51912599839&text=Hola+CEIISE%2C+me+interesa+asistir+al+congreso+y+quisiera+m%C3%A1s+informaci%C3%B3n+sobre+las+entradas.&type=phone_number&app_absent=0",
+  },
+  {
+    name: "Unirme al grupo informativo CEIISE",
+    phone: "",
+    link: "https://chat.whatsapp.com/LYRFATObSua0ZLDOweONdJ",
+  },
+];
+
 function HomePage() {
   const { days, hours, minutes, seconds } = useCountdown(EVENT_DATE);
+  const [whatsappOpen, setWhatsappOpen] = useState(false);
 
   return (
-    <div>
+    <div className="relative">
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -124,73 +153,50 @@ function HomePage() {
         </div>
       </div>
       </section>
-
-      {/* ¿Qué es? */}
-      <section className="py-24">
-        <div className="mx-auto max-w-4xl px-10 text-center">
-          <h2 className="text-lg md:text-3xl uppercase tracking-widest text-primary mb-8 font-semibold">¿Qué es CEIISE?</h2>
-          <p className="text-2xl md:text-2xl font-display leading-snug text-justify">
-            El <span className="gradient-text font-semibold">Congreso Estudiantil IISE (CEIISE 2025)</span> reunirá a expositores,
-            profesionales y estudiantes para actualizar y reflexionar junto a estudiantes y profesionales en ingeniería industrial.
-            A través de conferencias, talleres y espacios de discusión, 
-            se abordarán los desafíos de la industria en inteligencia artificial,
-            sostenibilidad y automatización, 
-            con una perspectiva crítica y estratégica hacia el futuro.
-          </p>
-        </div>
-      </section>
-
+    
       {/* Ejes */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-2xl mb-12 mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-3">Ejes <span className="gradient-text">temáticos</span></h2>
-            <p className="text-muted-foreground">Líneas de investigación principales del congreso.</p>
+          <div className="max-w-3xl mb-12 mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">
+              Ejes <span className="gradient-text">temáticos</span>
+            </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {ejes.map((e) => (
-              <div key={e.title} className="glass-card rounded-2xl p-6 hover:-translate-y-1 transition-transform justify-items-center">
-                <div className="h-12 w-12 rounded-xl gradient-brand flex items-center justify-center mb-4">
-                  <e.icon className="h-6 w-6 text-primary-foreground" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {ejes.map((e, index) => {
+              const cardStyles = [
+                "bg-[linear-gradient(135deg,#3C0465_0%,#6105A3_100%)] text-white",
+                "bg-[linear-gradient(135deg,#ff6b35_0%,#ffb703_100%)] text-slate-950",
+                "bg-[linear-gradient(135deg,#0f766e_0%,#22c55e_100%)] text-white",
+              ];
+              const iconStyles = ["bg-white/15", "bg-black/10", "bg-white/15"];
+              const textStyles = ["text-white/85", "text-slate-800", "text-white/85"];
+
+              return (
+                <div
+                  key={e.title}
+                  className={`rounded-[28px] p-8 shadow-xl transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl ${cardStyles[index]}`}
+                >
+                  <div className={`h-16 w-16 rounded-2xl mb-6 flex items-center justify-center ${iconStyles[index]}`}>
+                    <e.icon className="h-8 w-8" />
+                  </div>
+                  <h3 className="font-semibold text-[1.7rem] md:text-[2rem] leading-tight mb-4">{e.title}</h3>
+                  <p className={`text-[15px] md:text-[16px] leading-8 ${textStyles[index]}`}>
+                    {e.desc}
+                  </p>
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{e.title}</h3>
-                <p className="text-sm text-muted-foreground">{e.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Testimonios */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 -z-10 opacity-30">
-          <img src={auditorium} alt="" className="w-full h-full object-cover" width={1280} height={800} loading="lazy" />
-          <div className="absolute inset-0 bg-background/80" />
-        </div>
-        <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
-            Lo que dicen de la <span className="gradient-text">edición 2025</span>
-          </h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {testimonios.map((t) => (
-              <figure key={t.name} className="glass-card rounded-2xl p-6">
-                <Quote className="h-8 w-8 text-primary mb-4" />
-                <blockquote className="text-foreground/90 mb-6">"{t.text}"</blockquote>
-                <figcaption>
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-muted-foreground">{t.role}</div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Alianzas */}
       <section className="py-16 w-screen relative left-1/2 right-1/2 -mx-[50vw]">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Próximos <span className="gradient-text">aliados</span></h2>
-          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Proximamente</p>
+          <h2 className="text-3xl md:text-6xl font-bold text-center mb-4">Nuestras <span className="gradient-text">alianzas</span></h2>
+          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Próximamente</p>
         </div>
         
         <div className="relative w-full overflow-hidden">
@@ -218,20 +224,29 @@ function HomePage() {
       {/* CTA Final */}
       <section className="py-20">
         <div className="mx-auto max-w-5xl px-6">
-          <div className="relative rounded-3xl gradient-hero p-12 md:p-16 text-center overflow-hidden glow">
-            <div className="absolute inset-0 opacity-30 mix-blend-overlay">
-              <div className="absolute -top-20 -left-20 h-60 w-60 rounded-full bg-white/20 blur-3xl" />
-              <div className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-white/20 blur-3xl" />
+          <div className="relative animate-float rounded-[32px] border border-white/20 bg-[linear-gradient(145deg,#6105A3_100%,#d9b6f2_100%)] p-12 text-center text-white shadow-[0_25px_80px_rgba(96,5,163,0.35)] overflow-hidden md:p-16">
+            <div className="absolute inset-0 opacity-30 mix-blend-screen">
+              <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-white/25 blur-3xl" />
+              <div className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-[#ffb703]/30 blur-3xl" />
             </div>
-            <h2 className="relative text-4xl md:text-5xl font-bold mb-4 text-white">
-              Asegura tu lugar en CEIISE 2026
-            </h2>
-            <p className="relative text-white/80 mb-8 md:text-2xl mx-auto font-semibold">
-              Cupos limitados. Inicio de preventa en 08 de Junio.
-            </p>
-            <a href="#inscripciones" className="relative inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-primary font-semibold hover:scale-105 transition-transform">
-              Inscríbete ahora <ArrowRight className="h-5 w-5" />
-            </a>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_35%)]" />
+            <div className="relative z-10">
+              <div className="mb-4 inline-flex items-center rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.25em] backdrop-blur-sm">
+                Inscripciones abiertas
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                Asegura tu lugar en CEIISE 2026
+              </h2>
+              <p className="mx-auto mb-8 max-w-2xl text-base md:text-2xl font-semibold text-white/90">
+                Cupos limitados - Preventa 2
+              </p>
+              <a
+                href="#inscripciones"
+                className="relative inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[#3C0465] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_12px_30px_rgba(255,255,255,0.25)]"
+              >
+                Inscríbete ahora <ArrowRight className="h-5 w-5" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -241,7 +256,86 @@ function HomePage() {
       <div id="programa" className="scroll-mt-20"><ProgramPage /></div>
       <div id="inscripciones" className="scroll-mt-20"><PricingPage /></div>
       <div id="ediciones" className="scroll-mt-20"><PastPage /></div>
+
+      {/* Testimonios */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 -z-10 opacity-30">
+          <img src={auditorium} alt="" className="w-full h-full object-cover" width={1280} height={800} loading="lazy" />
+          <div className="absolute inset-0 bg-background/80" />
+        </div>
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+            Lo que dicen de la <span className="gradient-text">edición 2025</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {testimonios.map((t) => (
+              <figure key={t.name} className="glass-card rounded-2xl p-6">
+                <Quote className="h-8 w-8 text-primary mb-4" />
+                <blockquote className="text-foreground/90 mb-6">"{t.text}"</blockquote>
+                <figcaption>
+                  <div className="font-semibold">{t.name}</div>
+                  <div className="text-sm text-muted-foreground">{t.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div id="contacto" className="scroll-mt-20"><ContactPage /></div>
+
+      <div className="fixed bottom-6 right-6 z-50 flex w-full max-w-sm flex-col items-end gap-3">
+        {whatsappOpen && (
+          <div className="w-full rounded-3xl border border-white/15 bg-slate-950/95 p-4 shadow-2xl backdrop-blur-xl">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">Contáctanos</p>
+                <p className="text-sm font-semibold text-white">Selecciona un asesor o únete al grupo informativo</p>
+              </div>
+              <button
+                onClick={() => setWhatsappOpen(false)}
+                className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold text-white/80 transition hover:bg-white/10"
+              >
+                Cerrar
+              </button>
+            </div>
+            <div className="space-y-3">
+              {whatsappContacts.map((contact) => (
+                <a
+                  key={contact.phone}
+                  href={contact.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-between rounded-3xl border border-white/10 bg-white/5 px-4 py-3 transition hover:bg-white/10"
+                >
+                  <div>
+                    <p className="font-semibold text-white">{contact.name}</p>
+                    <p className="text-xs text-muted-foreground">{contact.phone}</p>
+                  </div>
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setWhatsappOpen((open) => !open)}
+          className="group relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_18px_45px_rgba(37,211,102,0.45)] transition-transform duration-300 hover:-translate-y-1"
+          aria-label="Abrir bandeja de WhatsApp"
+        >
+          <span className="absolute -top-1 -right-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-[11px] font-semibold text-white shadow-lg">
+            1
+          </span>
+          <svg className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.52 3.48A11.84 11.84 0 0012 0C5.37 0 0 5.37 0 12a11.8 11.8 0 001.92 6.72L0 24l5.41-1.42A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.18-1.24-6.15-3.48-8.52zM12 22.05a10 10 0 01-5.35-1.4l-.38-.23-3.21.84.86-3.13-.25-.4A10.05 10.05 0 011.95 12c0-5.58 4.53-10.1 10.1-10.1 2.69 0 5.21 1.05 7.09 2.95A10.07 10.07 0 0122.05 12 10.07 10.07 0 0112 22.05z" />
+            <path d="M17.71 14.23c-.27-.13-1.58-.78-1.82-.87-.24-.09-.42-.13-.6.12-.18.24-.7.87-.86 1.05-.16.18-.32.2-.59.07-.27-.13-1.14-.42-2.17-1.35-.8-.71-1.34-1.59-1.5-1.86-.15-.27-.02-.42.12-.55.12-.12.27-.31.4-.46.13-.15.17-.25.27-.42.09-.18.05-.33-.02-.46-.08-.13-.6-1.44-.82-1.97-.22-.52-.45-.45-.62-.46h-.53c-.18 0-.47.07-.72.33-.25.27-.95.93-.95 2.27 0 1.34.98 2.64 1.12 2.82.14.18 1.94 2.96 4.7 4.16 1.43.62 2.04.66 2.76.55.42-.07 1.29-.53 1.48-1.04.19-.52.19-.98.13-1.07-.06-.09-.23-.15-.5-.27z" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }

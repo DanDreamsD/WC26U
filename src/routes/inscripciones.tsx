@@ -132,39 +132,6 @@ export function PricingPage() {
             </div>
           ))}
         </div>
-
-        <p className="text-center text-sm text-muted-foreground mt-10 px-6">
-          ¿Necesitas ayuda o más información de las inscripciones?{" "}
-          <a href="" className="text-primary hover:underline">
-            
-          </a>
-        </p>
-
-        <div className="mx-auto max-w-2xl px-6 mt-8">
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <p className="text-sm text-muted-foreground mb-4">Contacta directamente con nuestro equipo:</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {[
-                { name: "Carlos Zuñiga", phone: "+51 955 119 544" },
-                { name: "Nicole Paco", phone: "+51 972 471 004" },
-                { name: "Jonathan Quispe", phone: "+51 940 020 483" },
-                { name: "Diago Pari", phone: "+51 912 599 839" },
-              ].map((contact) => (
-                <button
-                  key={contact.phone}
-                  onClick={() => {
-                    navigator.clipboard.writeText(contact.phone);
-                    alert(`${contact.phone} copiado al portapapeles`);
-                  }}
-                  className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10 hover:border-primary text-left cursor-pointer group"
-                >
-                  <div className="text-sm font-medium text-white">{contact.name}</div>
-                  <div className="text-xs text-primary group-hover:text-primary/80">{contact.phone}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
       </section>
     </div>
   );

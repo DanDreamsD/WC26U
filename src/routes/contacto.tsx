@@ -16,7 +16,7 @@ export const Route = createFileRoute("/contacto")({
 
 const faqs = [
   { q: " ¿Quiénes pueden participar en el congreso?", a: "El congreso está dirigido a estudiantes universitarios, egresados, docentes, investigadores, profesionales y público en general interesado en ampliar sus conocimientos y desarrollar nuevas habilidades. No es necesario pertenecer a la Universidad Nacional de San Agustín para participar; el evento está abierto a todas las personas que deseen formar parte de esta experiencia académica y profesional." },
-  { q: "¿Cómo puedo inscribirme?", a: "La inscripción se realiza de manera virtual a través del formulario disponible en la página web oficial del congreso. Una vez completado el registro y realizado el pago correspondiente (de ser aplicable), el participante recibirá un correo de confirmación con toda la información necesaria para acceder a las actividades programadas. Se recomienda revisar cuidadosamente los datos ingresados para evitar inconvenientes durante el proceso." },
+  { q: "¿Cómo puedo inscribirme?", a: "La inscripción se realiza de manera virtual a través del formulario disponible en la página web oficial del congreso. Una vez completado el registro y realizado el pago correspondiente, el participante recibirá un correo de confirmación con toda la información necesaria para acceder a las actividades programadas. Se recomienda revisar cuidadosamente los datos ingresados para evitar inconvenientes durante el proceso." },
   { q: "¿Recibiré un certificado de participación?", a: "Sí. Los participantes que cumplan con los requisitos establecidos por la organización, como el registro correcto y el porcentaje mínimo de asistencia requerido, recibirán un certificado digital emitido por IISE UNSA. Este documento acreditará su participación en el congreso y podrá ser utilizado como evidencia de formación complementaria en actividades académicas y profesionales." },
   { q: "¿Cómo puedo comunicarme con los organizadores?", a: "Para cualquier consulta relacionada con inscripciones, programación, certificaciones o información general del evento, los participantes pueden comunicarse con el equipo organizador a través de los canales oficiales de IISE UNSA, incluyendo correo electrónico, redes sociales y formularios de contacto disponibles en la página web. Nuestro equipo estará dispuesto a brindar orientación y resolver cualquier duda de manera oportuna." },
 ];
@@ -57,35 +57,6 @@ export function ContactPage() {
               );
             })}
           </div>
-        </div>
-      </section>
-
-      {/* Channels */}
-      <section className="py-20">
-        <div className="mx-auto max-w-4xl px-6 grid grid-cols-1 md:grid-cols-2 gap-5 justify-items-center">
-          <a href="https://chat.whatsapp.com/LYRFATObSua0ZLDOweONdJ" target="_blank" rel="noopener noreferrer" className="glass-card rounded-2xl p-8 hover:-translate-y-1 transition-transform">
-            <div className="h-12 w-12 rounded-xl gradient-brand flex items-center justify-center mb-4 glow">
-              <MessageCircle className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Comunidad WhatsApp</h3>
-            <p className="text-sm text-muted-foreground mb-3">Avisos rápidos, novedades y comunidad CEIISE.</p>
-            <span className="text-sm text-primary">Unirme al grupo →</span>
-          </a>
-
-          <div className="glass-card rounded-2xl p-8">
-            <div className="h-12 w-12 rounded-xl gradient-brand flex items-center justify-center mb-4 glow">
-              <Phone className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h3 className="font-semibold text-lg mb-2">Comité de soporte</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>Carlos Zuñiga: <span className="text-foreground">+51 955 119 544</span></li>
-              <li>Nicole Paco: <span className="text-foreground">+51 972 471 004</span></li>
-              <li>Jonathan Quispe: <span className="text-foreground">+51 940 020 483</span></li>
-              <li>Diago Pari: <span className="text-foreground">+51 912 599 839</span></li>
-            </ul>
-          </div>
-
-          
         </div>
       </section>
     </div>
