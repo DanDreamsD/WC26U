@@ -28,7 +28,12 @@ const stats = [
   { value: 10, label: "Aliados institucionales" },
 ];
 
-const gallery = [grupal, speaker1, networking, panel, visita_almacenes, merch, auditorium];
+const gallery = Object.entries(
+  import.meta.glob("../../FOTOS CEIISE ANTERIOR/*.{png,jpg,jpeg,svg,webp}", {
+    eager: true,
+    import: "default",
+  })
+).map(([, image]) => image as string);
 
 /* ─── Animated counter ──────────────────────────────── */
 function AnimatedNumber({ value, prefix = "", duration = 1400, isActive = false }: {
@@ -81,10 +86,10 @@ function GalleryCarousel({ photos }: { photos: string[] }) {
   };
 
   return (
-    <div className="relative select-none">
+    <div className="relative mx-auto w-full max-w-4xl select-none overflow-hidden">
       {/* Main viewport */}
       <div
-        className="relative overflow-hidden rounded-2xl aspect-[16/9] cursor-grab active:cursor-grabbing"
+        className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-2xl aspect-[16/10] max-h-[60vh] cursor-grab active:cursor-grabbing"
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
       >
@@ -119,25 +124,8 @@ function GalleryCarousel({ photos }: { photos: string[] }) {
         </button>
       </div>
 
-      {/* Thumbnail strip */}
-      <div className="flex gap-2 mt-4 overflow-x-auto pb-1">
-        {photos.map((src, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
-              i === current
-                ? "border-primary scale-105 shadow-[0_0_12px_oklch(0.50_0.30_305/0.5)]"
-                : "border-transparent opacity-45 hover:opacity-75"
-            }`}
-          >
-            <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
-          </button>
-        ))}
-      </div>
-
       {/* Dots */}
-      <div className="flex justify-center gap-2 mt-4">
+      <div className="mt-4 flex justify-center gap-2">
         {photos.map((_, i) => (
           <button
             key={i}
@@ -236,7 +224,7 @@ export function PastPage() {
       {/* Galería — Mosaico + Carrusel */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-4xl font-bold mb-3 text-center">
+          <h2 className="text-6xl font-bold mb-3 text-center">
             Galería <span className="gradient-text">CEIISE 2025</span>
           </h2>
           <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">
@@ -256,9 +244,9 @@ export function PastPage() {
             }}
           >
             {[
-              { area: "hero",  src: grupal,           alt: "Foto grupal · CEIISE 2025",  label: "Foto grupal" },
-              { area: "tall1", src: speaker1,          alt: "Ponente",                    label: "Ponente" },
-              { area: "tall2", src: networking,        alt: "Networking",                 label: "Networking" },
+              { area: "hero",  src: grupal,           alt: "Foto grupal · CEIISE 2025",  label: "" },
+              { area: "tall1", src: speaker1,          alt: "Ponente",                    label: "" },
+              { area: "tall2", src: networking,        alt: "Networking",                 label: "" },
               { area: "sm1",   src: panel,             alt: "Panel",                      label: "" },
               { area: "sm2",   src: visita_almacenes,  alt: "Visita técnica",             label: "" },
               { area: "sm3",   src: merch,             alt: "Merch",                      label: "" },

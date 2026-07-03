@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Brain, Truck, Quote } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import auditorium from "@/assets/auditorium.jpg";
+import logo from "@/assets/iconoceiiseweb.svg";
 import { AboutPage } from "./sobre";
 import { ProgramPage } from "./programa";
 import { PricingPage } from "./inscripciones";
@@ -94,6 +95,11 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
 
   return (
     <div id="ceiise-loader" className={hiding ? "loader-hidden" : ""}>
+      <img
+        src={logo}
+        alt="Logo CEIISE"
+        className="mb-6 h-20 w-20 object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+      />
       <div className="loader-ring" />
       <div className="loader-text">
         {"CEIISE".split("").map((ch, i) => (
@@ -117,14 +123,27 @@ const testimonios = [
   { name: "Flor Mamani", role: "Participante de las ediciones IV (2024) y V (2025)", text: "He tenido la oportunidad de asistir a más de una edición del CEIISE y puedo afirmar que cada año el congreso eleva su nivel. No solo brinda conocimientos técnicos, sino que también inspira a los estudiantes a desarrollar habilidades de liderazgo, trabajo en equipo y visión profesional. Es un evento que deja huella, ya que está constantemente actualizando sus ejes temáticos y contribuye significativamente a nuestra formación iJntegral, y espero con ansias poder participar de esta nueva edición, de las visitas técnicas, y del crédito extracurricular." },
 ];
 
-const alianzas = [
-  { name: "Empresa 1", logo: "" },
-  { name: "Empresa 2", logo: "" },
-  { name: "Empresa 3", logo: "" },
-  { name: "Empresa 4", logo: "" },
-  { name: "Empresa 5", logo: "" },
-  { name: "Empresa 6", logo: "" },
-];
+const logosAlianzas = Object.entries(
+  import.meta.glob("../../LOGOS ALIANZAS/*.{png,jpg,jpeg,svg}", {
+    eager: true,
+    import: "default",
+  })
+).map(([path, logo]) => ({
+  name: path.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "ALIANZA",
+  logo: logo as string,
+}));
+
+const logosEmpresas = Object.entries(
+  import.meta.glob("../../LOGOS EMPRESAS/*.{png,jpg,jpeg,svg}", {
+    eager: true,
+    import: "default",
+  })
+).map(([path, logo]) => ({
+  name: path.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "EMPRESA",
+  logo: logo as string,
+}));
+
+const alianzas = [...logosAlianzas, ...logosEmpresas];
 
 const whatsappContacts = [
   {
@@ -202,7 +221,7 @@ function HomePage() {
         </div>
 
         {/* Countdown */}
-        <div className="glass-card rounded-2xl p-8 w-full max-w-lg reveal reveal-delay-4">
+        <div id="home-countdown" className="glass-card rounded-2xl p-8 w-full max-w-lg reveal reveal-delay-4">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">El congreso inicia en</p>
           <div className="grid grid-cols-4 gap-3">
             {[
@@ -237,11 +256,11 @@ function HomePage() {
             {ejes.map((e, index) => {
               const cardStyles = [
                 "bg-[linear-gradient(135deg,#3C0465_0%,#6105A3_100%)] text-white",
-                "bg-[linear-gradient(135deg,#ff6b35_0%,#ffb703_100%)] text-slate-950",
-                "bg-[linear-gradient(135deg,#0f766e_0%,#22c55e_100%)] text-white",
+                "bg-[linear-gradient(135deg,#f9f6fd_0%,#f9f6fd_100%)] text-slate-950",
+                "bg-[linear-gradient(135deg,#d0a2fa_0%,#d0a2fa_100%)] text-slate-950",
               ];
-              const iconStyles = ["bg-white/15", "bg-black/10", "bg-white/15"];
-              const textStyles = ["text-white/85", "text-slate-800", "text-white/85"];
+              const iconStyles = ["bg-white/15", "bg-[#3C0465]/10", "bg-[#3C0465]/10"];
+              const textStyles = ["text-white/85", "text-slate-800", "text-slate-800"];
               const delays = ["reveal-delay-1", "reveal-delay-2", "reveal-delay-3"] as const;
 
               return (
@@ -268,22 +287,22 @@ function HomePage() {
       <section className="py-16 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 reveal">
           <h2 className="text-3xl md:text-6xl font-bold text-center mb-4">Nuestras <span className="gradient-text">alianzas</span></h2>
-          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Próximamente</p>
+          {/*<p className="text-center text-xs uppercase tracking-widest text-muted-foreground mb-12">Próximamente</p>*/}
         </div>
 
         <div className="relative overflow-hidden">
           <div className="animate-slide-left flex gap-8 py-8">
             {[...alianzas, ...alianzas].map((a, idx) => (
               <div key={idx} className="alliance-item flex-shrink-0 flex items-center gap-3 min-w-max cursor-pointer px-4">
-                <div className="w-16 h-16 rounded-lg bg-muted/20 border border-border flex items-center justify-center shrink-0">
+                <div className="flex h-16 w-28 items-center justify-center rounded-lg border border-border bg-muted/20 px-3 py-2 shrink-0">
                   {a.logo ? (
-                    <img src={a.logo} alt={a.name} className="w-12 h-12 object-contain" />
+                    <img src={a.logo} alt={a.name} className="max-h-10 w-auto object-contain" />
                   ) : (
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground text-center px-2">Logo</span>
+                    <span className="px-2 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Logo</span>
                   )}
                 </div>
-                <span className="alliance-text font-display font-semibold text-sm uppercase tracking-[0.25em] text-foreground/80">
-                  {a.name}
+                <span className="alliance-text font-display text-sm font-semibold uppercase tracking-[0.25em] text-foreground/80">
+                  {a.name.toUpperCase()}
                 </span>
               </div>
             ))}

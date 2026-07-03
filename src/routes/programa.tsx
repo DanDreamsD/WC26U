@@ -38,10 +38,9 @@ interface CellProps {
   type: CellType;
   style: React.CSSProperties;
   children: React.ReactNode;
-  waveActive: boolean;
 }
 
-function Cell({ type, style, children, waveActive }: CellProps) {
+function Cell({ type, style, children }: CellProps) {
   const baseColors: Record<CellType, string> = {
     deep:      "bg-[#240046]",
     accent:    "bg-[#3c096c]",
@@ -49,11 +48,9 @@ function Cell({ type, style, children, waveActive }: CellProps) {
     time:      "bg-[#1a0033]/60 text-purple-300 font-mono border border-[#3c096c]/20",
   };
 
-  const waveClass = waveActive && type !== "time" ? `wave-active type-${type}` : "";
-
   return (
     <div
-      className={`schedule-cell ${baseColors[type]} ${waveClass} text-center text-xs font-semibold p-2 rounded-xl flex items-center justify-center`}
+      className={`schedule-cell ${baseColors[type]} text-center text-xs font-semibold p-2 rounded-xl flex items-center justify-center`}
       style={style}
     >
       {children}
@@ -197,22 +194,6 @@ function SpeakersCarousel() {
 
 /* ─── Main Page ──────────────────────────────────────────────── */
 export function ProgramPage() {
-  const scheduleRef = useRef<HTMLDivElement>(null);
-  const [waveActive, setWaveActive] = useState(false);
-
-  useEffect(() => {
-    const el = scheduleRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setWaveActive(true);
-      },
-      { threshold: 0.15 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
   return (
     <div className="bg-[#0d0214] min-h-screen text-white">
       {/* HERO */}
@@ -245,10 +226,7 @@ export function ProgramPage() {
             Cronograma
           </h2>
 
-          <div
-            ref={scheduleRef}
-            className="w-full overflow-x-auto rounded-2xl border border-white/5 bg-black/20 p-6 backdrop-blur-md"
-          >
+          <div className="w-full overflow-x-auto rounded-2xl border border-white/5 bg-black/20 p-6 backdrop-blur-md">
             {/* Headers */}
             <div className="grid grid-cols-6 gap-4 min-w-[950px] mb-4 text-center font-bold">
               {["Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].map((d) => (
@@ -266,47 +244,47 @@ export function ProgramPage() {
 
               {/* HORAS */}
               {horas.map((hora, idx) => (
-                <Cell key={idx} type="time" waveActive={waveActive} style={{ gridColumn: 1, gridRow: idx + 1 }}>
+                <Cell key={idx} type="time" style={{ gridColumn: 1, gridRow: idx + 1 }}>
                   {hora}
                 </Cell>
               ))}
 
               {/* LUNES */}
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 2, gridRow: "1" }}>Check in</Cell>
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 2, gridRow: "2" }}>Inauguración</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 2, gridRow: "3" }}>Ponencia</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 2, gridRow: "4" }}>Taller Innovación</Cell>
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 2, gridRow: "5" }}>Meet &amp; Greet</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 2, gridRow: "8" }}>Ponencia</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 2, gridRow: "9/11" }}>Ponencia</Cell>
-              <Cell type="highlight" waveActive={waveActive} style={{ gridColumn: 2, gridRow: "11/13" }}>Noche cultural</Cell>
+              <Cell type="accent" style={{ gridColumn: 2, gridRow: "1" }}>Check in</Cell>
+              <Cell type="accent" style={{ gridColumn: 2, gridRow: "2" }}>Inauguración</Cell>
+              <Cell type="deep"   style={{ gridColumn: 2, gridRow: "3" }}>Ponencia</Cell>
+              <Cell type="deep"   style={{ gridColumn: 2, gridRow: "4" }}>Taller Innovación</Cell>
+              <Cell type="accent" style={{ gridColumn: 2, gridRow: "5" }}>Meet &amp; Greet</Cell>
+              <Cell type="deep"   style={{ gridColumn: 2, gridRow: "8" }}>Ponencia</Cell>
+              <Cell type="deep"   style={{ gridColumn: 2, gridRow: "9/11" }}>Ponencia</Cell>
+              <Cell type="highlight" style={{ gridColumn: 2, gridRow: "11/13" }}>Noche cultural</Cell>
 
               {/* MARTES */}
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 3, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 3, gridRow: "8" }}>Ponencia</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 3, gridRow: "9/11" }}>Ponencia</Cell>
-              <Cell type="highlight" waveActive={waveActive} style={{ gridColumn: 3, gridRow: "11/13" }}>Feria de voluntarios</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 3, gridRow: "13/15" }}>Ponencia</Cell>
+              <Cell type="accent" style={{ gridColumn: 3, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
+              <Cell type="deep"   style={{ gridColumn: 3, gridRow: "8" }}>Ponencia</Cell>
+              <Cell type="deep"   style={{ gridColumn: 3, gridRow: "9/11" }}>Ponencia</Cell>
+              <Cell type="highlight" style={{ gridColumn: 3, gridRow: "11/13" }}>Feria de voluntarios</Cell>
+              <Cell type="deep"   style={{ gridColumn: 3, gridRow: "13/15" }}>Ponencia</Cell>
 
               {/* MIÉRCOLES */}
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 4, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
-              <Cell type="highlight" waveActive={waveActive} style={{ gridColumn: 4, gridRow: "7/11" }}>Feria laboral</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 4, gridRow: "11" }}>Taller Logística</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 4, gridRow: "12" }}>Ponencia</Cell>
-              <Cell type="time"   waveActive={waveActive} style={{ gridColumn: 4, gridRow: "13" }}>Coffee Break</Cell>
+              <Cell type="accent" style={{ gridColumn: 4, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
+              <Cell type="highlight" style={{ gridColumn: 4, gridRow: "7/11" }}>Feria laboral</Cell>
+              <Cell type="deep"   style={{ gridColumn: 4, gridRow: "11" }}>Taller Logística</Cell>
+              <Cell type="deep"   style={{ gridColumn: 4, gridRow: "12" }}>Ponencia</Cell>
+              <Cell type="time"   style={{ gridColumn: 4, gridRow: "13" }}>Coffee Break</Cell>
 
               {/* JUEVES */}
-              <Cell type="accent" waveActive={waveActive} style={{ gridColumn: 5, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
-              <Cell type="highlight" waveActive={waveActive} style={{ gridColumn: 5, gridRow: "8/11" }}>Hub de Innovación Aplicada</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 5, gridRow: "11" }}>Ponencia</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 5, gridRow: "12" }}>Meet &amp; Greet</Cell>
+              <Cell type="accent" style={{ gridColumn: 5, gridRow: "span 5 / 6" }}>Visita Técnica</Cell>
+              <Cell type="highlight" style={{ gridColumn: 5, gridRow: "8/11" }}>Hub de Innovación Aplicada</Cell>
+              <Cell type="deep"   style={{ gridColumn: 5, gridRow: "11" }}>Ponencia</Cell>
+              <Cell type="deep"   style={{ gridColumn: 5, gridRow: "12" }}>Meet &amp; Greet</Cell>
 
               {/* VIERNES */}
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 6, gridRow: "3" }}>Ponencia</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 6, gridRow: "4/6" }}>Conversatorio</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 6, gridRow: "8/10" }}>Taller Liderazgo</Cell>
-              <Cell type="deep"   waveActive={waveActive} style={{ gridColumn: 6, gridRow: "10" }}>Cierre</Cell>
-              <Cell type="highlight" waveActive={waveActive} style={{ gridColumn: 6, gridRow: "11" }}>Concierto</Cell>
+              <Cell type="deep"   style={{ gridColumn: 6, gridRow: "3" }}>Ponencia</Cell>
+              <Cell type="deep"   style={{ gridColumn: 6, gridRow: "4/6" }}>Conversatorio</Cell>
+              <Cell type="deep"   style={{ gridColumn: 6, gridRow: "8/10" }}>Taller Liderazgo</Cell>
+              <Cell type="deep"   style={{ gridColumn: 6, gridRow: "10" }}>Cierre</Cell>
+              <Cell type="highlight" style={{ gridColumn: 6, gridRow: "11" }}>Concierto</Cell>
             </div>
           </div>
         </div>
@@ -316,12 +294,9 @@ export function ProgramPage() {
       {/* PONENTES 3D */}
       <section className="py-20">
         <div className="mx-auto max-w-4xl px-6">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-25 text-center">
             <span className="gradient-text">Ponentes</span> confirmados
           </h2>
-          <p className="text-center text-sm text-muted-foreground mb-12 tracking-widest uppercase">
-            Arrastra o usa las flechas para explorar
-          </p>
           <SpeakersCarousel />
         </div>
       </section>

@@ -3,6 +3,24 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import iconLogo from "../assets/iconoceiiseweb.svg";
 
+const EVENT_DATE = new Date("2026-08-03T08:30:00");
+
+function useEventCountdown(target: Date) {
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const diff = Math.max(0, target.getTime() - now);
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff / 3600000) % 24);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  return { days, hours, seconds };
+}
+
 const navItems = [
   { to: "/", label: "Inicio" },
   { to: "/#sobre", label: "Sobre el Congreso" },
@@ -22,6 +40,8 @@ export function SiteLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showCompactCountdown, setShowCompactCountdown] = useState(false);
+  const { days, hours, seconds } = useEventCountdown(EVENT_DATE);
 
   useEffect(() => {
     document.documentElement.classList.add("dark");
@@ -35,6 +55,38 @@ export function SiteLayout() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const target = document.getElementById("home-countdown");
+
+    if (!target) {
+      setShowCompactCountdown(true);
+      return;
+    }
+
+    const updateVisibility = () => {
+      const rect = target.getBoundingClientRect();
+      setShowCompactCountdown(rect.bottom <= 0);
+    };
+
+    updateVisibility();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isVisible = entries.some((entry) => entry.isIntersecting);
+        setShowCompactCountdown(!isVisible);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(target);
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", updateVisibility);
+    };
+  }, [pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -56,11 +108,21 @@ export function SiteLayout() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-            <img src={iconLogo} alt="CEIISE 2026" className="h-8 w-8 rounded-lg object-cover" />
-            <span className="gradient-text">CEIISE 2026</span>
-          </Link>
+        <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            {showCompactCountdown && (
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold tracking-[0.2em] text-white/90 backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-white/80" />
+                <span>
+                  {String(days).padStart(2, "0")}d {String(hours).padStart(2, "0")}h {String(seconds).padStart(2, "0")}s
+                </span>
+              </div>
+            )}
+            <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
+              <img src={iconLogo} alt="CEIISE 2026" className="h-8 w-8 rounded-lg object-cover" />
+              <span className="gradient-text">CEIISE 2026</span>
+            </Link>
+          </div>
 
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
