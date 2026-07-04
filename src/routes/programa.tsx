@@ -389,7 +389,7 @@ export function ProgramPage() {
             5 días de aprendizaje, 10+ ponencias, 3 visitas técnicas de tu elección, talleres especializados y oportunidades de conexión con profesionales y empresas.
           </p>
           <a
-            href="https://linktr.ee/ceiise2026.unsa"
+            href="https://online.fliphtml5.com/kqejn/BROCHURE---CEIISE-2026-LILI"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full gradient-brand text-primary-foreground font-medium glow hover:scale-105 transition-transform"
@@ -448,14 +448,14 @@ export function ProgramPage() {
 
               {/* MIÉRCOLES */}
               <Cell theme="accent" style={{ gridColumn: 4, gridRow: "span 5 / 6" }} {...cellProps("x-1")}>Visita Técnica</Cell>
-              <Cell theme="feria-laboral" style={{ gridColumn: 4, gridRow: "7/11" }} {...cellProps("x-7")}>Feria laboral</Cell>
+              <Cell theme="feria-laboral" style={{ gridColumn: 4, gridRow: "7/11" }} {...cellProps("x-7")}>Feria laboral<br />y Hub de innovación</Cell>
               <Cell theme="deep" style={{ gridColumn: 4, gridRow: "11" }} {...cellProps("x-11")}>Taller Logística</Cell>
               <Cell theme="deep" style={{ gridColumn: 4, gridRow: "12" }} {...cellProps("x-12")}>Ponencia</Cell>
               <Cell theme="coffee" style={{ gridColumn: 4, gridRow: "13" }} {...cellProps("x-13")}>Coffee Break</Cell>
 
               {/* JUEVES */}
               <Cell theme="accent" style={{ gridColumn: 5, gridRow: "span 5 / 6" }} {...cellProps("j-1")}>Visita Técnica</Cell>
-              <Cell theme="hub-innovacion" style={{ gridColumn: 5, gridRow: "8/11" }} {...cellProps("j-8")}>Hub de Innovación Aplicada</Cell>
+
               <Cell theme="deep" style={{ gridColumn: 5, gridRow: "11" }} {...cellProps("j-11")}>Ponencia</Cell>
               <Cell theme="deep" style={{ gridColumn: 5, gridRow: "12" }} {...cellProps("j-12")}>Meet &amp; Greet</Cell>
 
