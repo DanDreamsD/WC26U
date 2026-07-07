@@ -64,7 +64,7 @@ const tiers: TierConfig[] = [
   {
     key: "standard",
     name: "Estándar",
-    price: 68,
+    price: 75,
     currency: "PEN",
     desc: "Participa en todas las actividades principales del evento.",
     cta: "Inscribirme",
@@ -73,14 +73,14 @@ const tiers: TierConfig[] = [
     cardStyle: { background: "linear-gradient(135deg, #CE8BFF 0%, #DAAEF6 100%)" },
     priceHistory: [
       { label: "Preventa 1", price: 55, active: false },
-      { label: "Preventa 2", price: 68, active: true },
-      { label: "Venta General", price: 72, active: false },
+      { label: "Preventa 2", price: 68, active: false },
+      { label: "Venta General", price: 75, active: true },
     ],
   },
   {
     key: "vip",
     name: "VIP",
-    price: 72,
+    price: 78,
     currency: "PEN",
     desc: "Vive una experiencia completa con beneficios exclusivos.",
     cta: "Quiero VIP",
@@ -89,14 +89,14 @@ const tiers: TierConfig[] = [
     cardStyle: { background: "linear-gradient(135deg, #9F1D87 0%, #5B2E89 100%)" },
     priceHistory: [
       { label: "Preventa 1", price: 60, active: false },
-      { label: "Preventa 2", price: 72, active: true },
-      { label: "Venta General", price: 75, active: false },
+      { label: "Preventa 2", price: 72, active: false },
+      { label: "Venta General", price: 78, active: true },
     ],
   },
   {
     key: "premium",
     name: "Premium",
-    price: 76,
+    price: 80,
     currency: "PEN",
     desc: "Para quienes buscan impulsar su perfil profesional al máximo.",
     cta: "Quiero Premium",
@@ -105,8 +105,8 @@ const tiers: TierConfig[] = [
     cardStyle: { background: "linear-gradient(160deg, #1a0a2e 0%, #0d0518 100%)" },
     priceHistory: [
       { label: "Preventa 1", price: 68, active: false },
-      { label: "Preventa 2", price: 76, active: true },
-      { label: "Venta General", price: 80, active: false },
+      { label: "Preventa 2", price: 76, active: false },
+      { label: "Venta General", price: 80, active: true },
     ],
   },
 ];
@@ -114,8 +114,8 @@ const tiers: TierConfig[] = [
 /* ── Price stages data for bottom table ── */
 const stages = [
   { name: "Preventa 1", status: "Culminado", statusClass: "stage-ended", prices: [55, 60, 68] },
-  { name: "Preventa 2", status: "Activa", statusClass: "stage-active", prices: [68, 72, 76] },
-  { name: "Venta General", status: "Próximo", statusClass: "stage-soon", prices: [72, 75, 80] },
+  { name: "Preventa 2", status: "Culminado", statusClass: "stage-ended", prices: [68, 72, 76] },
+  { name: "Venta General", status: "Activa", statusClass: "stage-active", prices: [75, 78, 80] },
 ];
 
 export function PricingPage() {
@@ -125,7 +125,7 @@ export function PricingPage() {
       <section className="py-20">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="text-lg md:text-3xl uppercase tracking-widest text-primary mb-8 font-semibold">
-            Inscripciones (preventa 2)
+            Inscripciones (venta general)
           </p>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Elige tu <span className="gradient-text">experiencia</span>
@@ -163,7 +163,7 @@ export function PricingPage() {
                 {/* Price */}
                 <div className="tier-price-block">
                   <span className="tier-price-amount">S/ {t.price}</span>
-                  <span className="tier-price-label">Preventa 2</span>
+                  <span className="tier-price-label">Venta General</span>
                 </div>
 
                 {/* Mini price history */}
@@ -223,7 +223,7 @@ export function PricingPage() {
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold">Etapas de venta</h2>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Los precios aumentan en cada etapa. ¡Aprovecha la preventa activa!
+                  Los precios aumentan en cada etapa. ¡Aprovecha la venta general activa!
                 </p>
               </div>
             </div>

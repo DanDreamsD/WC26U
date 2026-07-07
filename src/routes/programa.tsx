@@ -27,10 +27,79 @@ const logosAlianzas = Object.entries(
 ).map(([, logo]) => logo as string);
 
 const horas = [
-  "08:30 - 09:30", "09:30 - 10:00", "10:00 - 10:45", "10:45 - 11:45",
-  "11:45 - 12:30", "12:30 - 14:00", "14:00 - 14:30", "14:30 - 15:30",
-  "15:30 - 15:45", "15:45 - 16:15", "16:15 - 17:00", "17:00 - 17:45",
+  "08:30 - 09:30", "09:30 - 09:45", "09:45 - 10:00", "10:00 - 10:45",
+  "10:45 - 11:45", "11:45 - 12:30", "12:30 - 14:00", "14:00 - 14:30",
+  "14:30 - 15:15", "15:15 - 15:30", "15:45 - 16:15", "16:15 - 17:45",
   "17:45 - 18:00", "18:00 - 18:30",
+];
+
+const scheduleBlocks = [
+  {
+    day: "Lunes",
+    column: 2,
+    items: [
+      { label: "Recepción y networking", row: 1, theme: "accent" as const },
+      { label: "Número musical", row: 2, theme: "deep" as const },
+      { label: "Inauguración", row: 3, theme: "inauguracion" as const },
+      { label: "Ponencia", row: 4, theme: "deep" as const },
+      { label: "Taller Liderazgo", row: 5, theme: "deep" as const },
+      { label: "Meet & Greet", row: 6, theme: "accent" as const },
+      { label: "Almuerzo libre", row: 7, theme: "deep" as const },
+      { label: "Ponencia", row: 9, theme: "deep" as const },
+      { label: "Contingencia", row: 10, theme: "deep" as const },
+      { label: "Ponencia", row: 11, theme: "deep" as const },
+      { label: "Noche cultural", row: 12, span: 2, theme: "noche-cultural" as const },
+    ],
+  },
+  {
+    day: "Martes",
+    column: 3,
+    items: [
+      { label: "Visita Técnica", row: 5, span: 2, theme: "accent" as const },
+      { label: "Almuerzo libre", row: 7, theme: "deep" as const },
+      { label: "Talk Experience", row: 9, theme: "deep" as const },
+      { label: "Contingencia", row: 10, theme: "deep" as const },
+      { label: "Ponencia", row: 11, theme: "deep" as const },
+      { label: "Feria de voluntariados", row: 12, span: 2, theme: "feria-voluntarios" as const },
+      { label: "Ponencia", row: 14, theme: "deep" as const },
+    ],
+  },
+  {
+    day: "Miércoles",
+    column: 4,
+    items: [
+      { label: "Visita Técnica", row: 5, span: 2, theme: "accent" as const },
+      { label: "Almuerzo libre", row: 7, theme: "deep" as const },
+      { label: "Feria laboral", row: 8, span: 3, theme: "feria-laboral" as const },
+      { label: "Taller Logística Inteligente", row: 11, theme: "deep" as const },
+      { label: "Ponencia", row: 12, theme: "deep" as const },
+      { label: "Coffee Break", row: 13, theme: "coffee" as const },
+    ],
+  },
+  {
+    day: "Jueves",
+    column: 5,
+    items: [
+      { label: "Visita Técnica", row: 5, span: 2, theme: "accent" as const },
+      { label: "Hub de Innovación Aplicada", row: 9, span: 2, theme: "hub-innovacion" as const },
+      { label: "Meet & Greet", row: 12, theme: "accent" as const },
+      { label: "Ponencia", row: 13, theme: "deep" as const },
+    ],
+  },
+  {
+    day: "Viernes",
+    column: 6,
+    items: [
+      { label: "Recepción", row: 2, theme: "accent" as const },
+      { label: "Ponencia", row: 3, theme: "deep" as const },
+      { label: "Contingencia", row: 4, theme: "deep" as const },
+      { label: "Conversatorio", row: 5, span: 2, theme: "deep" as const },
+      { label: "Buffet · Fotos", row: 8, theme: "deep" as const },
+      { label: "Taller Innovación", row: 9, theme: "deep" as const },
+      { label: "Cierre", row: 11, theme: "deep" as const },
+      { label: "Concierto", row: 12, theme: "concierto" as const },
+    ],
+  },
 ];
 
 const ponentes = [
@@ -48,22 +117,28 @@ interface EventInfo {
 }
 
 const eventDescriptions: Record<string, EventInfo> = {
-  "Check in": { title: "Check in", desc: "Registro y acreditación de participantes." },
+  "Recepción y networking": { title: "Recepción y networking", desc: "Registro y bienvenida inicial de participantes." },
+  "Número musical": { title: "Número musical", desc: "Apertura artística del día." },
   "Inauguración": { title: "Inauguración", desc: "Ceremonia oficial de apertura del CEIISE 2026." },
-  "Ponencia": { title: "Ponencia Magistral", desc: "Conferencia a cargo de un experto invitado." },
-  "Taller Innovación": { title: "Taller de Innovación", desc: "Taller práctico sobre metodologías de innovación." },
+  "Ponencia": { title: "Ponencia", desc: "Conferencia o charla temática del congreso." },
+  "Taller Liderazgo": { title: "Taller de liderazgo", desc: "Taller especializado en liderazgo y gestión." },
   "Meet & Greet": { title: "Meet & Greet", desc: "Espacio de interacción con ponentes y asistentes." },
+  "Almuerzo libre": { title: "Almuerzo libre", desc: "Tiempo libre para alimentación y descanso." },
+  "Contingencia": { title: "Contingencia", desc: "Ajuste de agenda por imprevistos o pausas." },
   "Noche cultural": { title: "Noche Cultural", desc: "Actividad cultural y artística para cerrar el día." },
-  "Visita Técnica": { title: "Visita Técnica", desc: "Recorrido guiado a una empresa local." },
-  "Feria de voluntarios": { title: "Feria de Voluntarios", desc: "Conoce a las organizaciones aliadas y oportunidades de voluntariado." },
+  "Visita Técnica": { title: "Visita Técnica", desc: "Recorrido guiado al lugar de la visita." },
+  "Talk Experience": { title: "Talk Experience", desc: "Espacio dinámico de conversación y reflexión." },
+  "Feria de voluntariados": { title: "Feria de voluntariados", desc: "Conoce oportunidades de participación y servicio." },
   "Feria laboral": { title: "Feria Laboral", desc: "Conecta con empresas y oportunidades profesionales." },
-  "Taller Logística": { title: "Taller de Logística", desc: "Taller especializado en logística y cadena de suministro." },
+  "Taller Logística Inteligente": { title: "Taller Logística Inteligente", desc: "Taller enfocado en logística y optimización." },
   "Coffee Break": { title: "Coffee Break", desc: "Pausa para refrigerio y networking informal." },
-  "Hub de Innovación Aplicada": { title: "Hub de Innovación Aplicada", desc: "Espacio de exhibición de proyectos innovadores." },
+  "Hub de Innovación Aplicada": { title: "Hub de Innovación Aplicada", desc: "Espacio de exhibición y exploración de innovación." },
   "Conversatorio": { title: "Conversatorio", desc: "Mesa redonda con profesionales del sector." },
-  "Taller Liderazgo": { title: "Taller de Liderazgo", desc: "Taller sobre habilidades de liderazgo y gestión." },
+  "Buffet · Fotos": { title: "Buffet · Fotos", desc: "Reto de networking y registro fotográfico." },
+  "Taller Innovación": { title: "Taller de Innovación", desc: "Taller práctico sobre metodologías de innovación." },
   "Cierre": { title: "Cierre", desc: "Ceremonia de clausura y premiación." },
   "Concierto": { title: "Concierto", desc: "Evento musical de cierre del congreso." },
+  "Recepción": { title: "Recepción", desc: "Bienvenida y registro del día." },
 };
 
 /* ─── Themed cell type ───────────────────────────── */
@@ -421,50 +496,27 @@ export function ProgramPage() {
 
             {/* Body */}
             <div className="grid-schedule grid grid-cols-6 gap-[3px] min-w-[900px] grid-rows-[repeat(14,minmax(36px,auto))]">
-
-              {/* HORAS */}
               {horas.map((hora, idx) => (
                 <Cell key={idx} theme="time" style={{ gridColumn: 1, gridRow: idx + 1 }} {...cellProps(`time-${idx}`)}>
                   {hora}
                 </Cell>
               ))}
 
-              {/* LUNES */}
-              <Cell theme="accent" style={{ gridColumn: 2, gridRow: "1" }} {...cellProps("l-1")}>Check in</Cell>
-              <Cell theme="inauguracion" style={{ gridColumn: 2, gridRow: "2" }} {...cellProps("l-2")}>Inauguración</Cell>
-              <Cell theme="deep" style={{ gridColumn: 2, gridRow: "3" }} {...cellProps("l-3")}>Ponencia</Cell>
-              <Cell theme="deep" style={{ gridColumn: 2, gridRow: "4" }} {...cellProps("l-4")}>Taller Innovación</Cell>
-              <Cell theme="accent" style={{ gridColumn: 2, gridRow: "5" }} {...cellProps("l-5")}>Meet &amp; Greet</Cell>
-              <Cell theme="deep" style={{ gridColumn: 2, gridRow: "8" }} {...cellProps("l-8")}>Ponencia</Cell>
-              <Cell theme="deep" style={{ gridColumn: 2, gridRow: "9/11" }} {...cellProps("l-9")}>Ponencia</Cell>
-              <Cell theme="noche-cultural" style={{ gridColumn: 2, gridRow: "11/13" }} {...cellProps("l-11")}>Noche cultural</Cell>
-
-              {/* MARTES */}
-              <Cell theme="accent" style={{ gridColumn: 3, gridRow: "span 5 / 6" }} {...cellProps("m-1")}>Visita Técnica</Cell>
-              <Cell theme="deep" style={{ gridColumn: 3, gridRow: "8" }} {...cellProps("m-8")}>Ponencia</Cell>
-              <Cell theme="deep" style={{ gridColumn: 3, gridRow: "9/11" }} {...cellProps("m-9")}>Ponencia</Cell>
-              <Cell theme="feria-voluntarios" style={{ gridColumn: 3, gridRow: "11/13" }} {...cellProps("m-11")}>Feria de voluntarios</Cell>
-              <Cell theme="deep" style={{ gridColumn: 3, gridRow: "13/15" }} {...cellProps("m-13")}>Ponencia</Cell>
-
-              {/* MIÉRCOLES */}
-              <Cell theme="accent" style={{ gridColumn: 4, gridRow: "span 5 / 6" }} {...cellProps("x-1")}>Visita Técnica</Cell>
-              <Cell theme="feria-laboral" style={{ gridColumn: 4, gridRow: "7/11" }} {...cellProps("x-7")}>Feria laboral<br />y Hub de innovación</Cell>
-              <Cell theme="deep" style={{ gridColumn: 4, gridRow: "11" }} {...cellProps("x-11")}>Taller Logística</Cell>
-              <Cell theme="deep" style={{ gridColumn: 4, gridRow: "12" }} {...cellProps("x-12")}>Ponencia</Cell>
-              <Cell theme="coffee" style={{ gridColumn: 4, gridRow: "13" }} {...cellProps("x-13")}>Coffee Break</Cell>
-
-              {/* JUEVES */}
-              <Cell theme="accent" style={{ gridColumn: 5, gridRow: "span 5 / 6" }} {...cellProps("j-1")}>Visita Técnica</Cell>
-
-              <Cell theme="deep" style={{ gridColumn: 5, gridRow: "11" }} {...cellProps("j-11")}>Ponencia</Cell>
-              <Cell theme="deep" style={{ gridColumn: 5, gridRow: "12" }} {...cellProps("j-12")}>Meet &amp; Greet</Cell>
-
-              {/* VIERNES */}
-              <Cell theme="deep" style={{ gridColumn: 6, gridRow: "3" }} {...cellProps("v-3")}>Ponencia</Cell>
-              <Cell theme="deep" style={{ gridColumn: 6, gridRow: "4/6" }} {...cellProps("v-4")}>Conversatorio</Cell>
-              <Cell theme="deep" style={{ gridColumn: 6, gridRow: "8/10" }} {...cellProps("v-8")}>Taller Liderazgo</Cell>
-              <Cell theme="deep" style={{ gridColumn: 6, gridRow: "10" }} {...cellProps("v-10")}>Cierre</Cell>
-              <Cell theme="concierto" style={{ gridColumn: 6, gridRow: "11" }} {...cellProps("v-11")}>Concierto</Cell>
+              {scheduleBlocks.map((dayBlock) =>
+                dayBlock.items.map((item, idx) => (
+                  <Cell
+                    key={`${dayBlock.day}-${idx}`}
+                    theme={item.theme}
+                    style={{
+                      gridColumn: dayBlock.column,
+                      gridRow: item.span ? `${item.row} / ${item.row + item.span}` : item.row,
+                    }}
+                    {...cellProps(`${dayBlock.day}-${idx}`)}
+                  >
+                    {item.label}
+                  </Cell>
+                ))
+              )}
             </div>
           </div>
         </div>

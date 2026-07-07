@@ -31,9 +31,9 @@ const navItems = [
 ];
 
 const announcementMessages = [
-  "Estamos en la etapa 2 de ventas",
-  "Aprovecha los precios especiales",
-  "Inscripciones abiertas para el evento",
+  "¡¡VENTAS EN ETAPA GENERAL!!",
+  "APROVECHA LA PROMOCION USCP",
+  "INSCRIPCIONES DISPONIBLES, ¡NO TE QUEDES FUERA!",
 ];
 
 export function SiteLayout() {
