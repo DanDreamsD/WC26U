@@ -15,11 +15,8 @@ export const Route = createFileRoute("/inscripciones")({
 
 /* ── All benefits in display order ── */
 const allBenefits = [
-  { name: "Acceso al congreso", standard: true, vip: true, premium: true },
   { name: "Guía interactiva", standard: true, vip: true, premium: true },
-  { name: "Participación en ponencias magistrales", standard: true, vip: true, premium: true },
   { name: "Interacción con asistentes y ponentes", standard: true, vip: true, premium: true },
-  { name: "Dinámicas", standard: true, vip: true, premium: true },
   { name: "Merchandising", standard: "ESTÁNDAR", vip: "VIP", premium: "PREMIUM" },
   { name: "Certificado digital", standard: true, vip: true, premium: true },
   { name: "Certificado físico", standard: false, vip: false, premium: true },
@@ -38,8 +35,6 @@ const allBenefits = [
   { name: "Acceso a la noche cultural", standard: true, vip: true, premium: true },
   { name: "Acceso al Hub de Innovación", standard: true, vip: true, premium: true },
   { name: "Acceso a la feria laboral", standard: true, vip: true, premium: true },
-  { name: "Revisión de CV", standard: false, vip: false, premium: true },
-  { name: "Simulación de entrevistas", standard: false, vip: false, premium: true },
   { name: "Passport Challenge Premium", standard: false, vip: false, premium: true },
   { name: "Ranking de participación", standard: false, vip: false, premium: true },
   { name: "Acceso especial a futuros proyectos", standard: false, vip: false, premium: true },

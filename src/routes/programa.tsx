@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState, useCallback } from "react";
-import speaker1 from "@/assets/ponente.jpg";
-import speaker2 from "@/assets/ponente.jpg";
-import speaker3 from "@/assets/ponente.jpg";
-import speaker4 from "@/assets/ponente.jpg";
+
+const speakerImages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob("../../FOTOS PONENTES/*.{png,jpg,jpeg,svg,webp}", {
+      eager: true,
+      import: "default",
+    })
+  ).map(([path, src]) => [path.split("/").pop() ?? "", src as string])
+) as Record<string, string>;
 
 export const Route = createFileRoute("/programa")({
   head: () => ({
@@ -103,10 +108,24 @@ const scheduleBlocks = [
 ];
 
 const ponentes = [
-  { name: "Próximamente", role: "Liderazgo", img: speaker1 },
-  { name: "Próximamente", role: "Innovación", img: speaker2 },
-  { name: "Próximamente", role: "Logística Inteligente", img: speaker3 },
-  { name: "Próximamente", role: "Gestión Empresarial", img: speaker4 },
+  {
+    name: "Jeanmarco David Villegas Alvarez",
+    role: "Doctor en Proyectos, MBA y especialista en gestión de proyectos e innovación. Experiencia en consultoría estratégica, emprendimiento y desarrollo de proyectos para empresas e instituciones educativas.",
+    topic: "«Cómo los ingenieros pueden transformar tecnología en valor empresarial»",
+    img: speakerImages["Jeanmarco David Villegas Alvarez.jpeg"],
+  },
+  {
+    name: "Karen Rocío Humpiri Turpo",
+    role: "Profesional vinculada a la Universidad Nacional de San Agustín, enfocada en el desarrollo del liderazgo y las habilidades profesionales para estudiantes y futuros ingenieros.",
+    topic: "«Eje de liderazgo»",
+    img: speakerImages["Karen Rocío Humpiri Turpo.jpeg"],
+  },
+  {
+    name: "Gonzalo Alonso Sánchez Lorenzo",
+    role: "Ingeniero Informático, MBA y consultor con más de 20 años de experiencia en transformación digital, gestión de proyectos e implementación de tecnologías para organizaciones públicas y privadas.",
+    topic: "«Modelos de Negocio Innovadores»",
+    img: speakerImages["Gonzalo Alonso Sánchez Lorenzo.jpeg"],
+  },
 ];
 
 /* ─── Tooltip data per event ─────────────────────── */
@@ -395,7 +414,11 @@ function SpeakersCarousel() {
                 <img src={p.img} alt={p.name} loading="lazy" />
                 <div className="card-info">
                   <h3>{p.name}</h3>
-                  <p>{p.role}</p>
+                  <p className="text-[10px] leading-snug text-purple-200/90">{p.role}</p>
+                  <div className="mt-3 rounded-xl border border-purple-400/20 bg-white/10 px-3 py-2">
+                    <p className="text-[10px] uppercase tracking-[0.24em] text-purple-200/80">Tema</p>
+                    <p className="mt-1 text-sm font-semibold leading-snug text-amber-100">{p.topic}</p>
+                  </div>
                 </div>
                 {offset === 0 && (
                   <div
@@ -463,6 +486,7 @@ export function ProgramPage() {
           <p className="text-lg text-muted-foreground mb-8">
             5 días de aprendizaje, 10+ ponencias, 3 visitas técnicas de tu elección, talleres especializados y oportunidades de conexión con profesionales y empresas.
           </p>
+          {/* BOTÓN DEL BROCHURE COMENTADO
           <a
             href="https://online.fliphtml5.com/kqejn/BROCHURE---CEIISE-2026-LILI"
             target="_blank"
@@ -471,10 +495,11 @@ export function ProgramPage() {
           >
             <BookOpen className="h-4 w-4" /> Ver brochure completo
           </a>
+          */}
         </div>
       </section>
 
-      {/* CRONOGRAMA */}
+      {/* CRONOGRAMA - COMENTADO PARA HABILITARLO DESPUÉS
       <section className="py-12 px-4 md:px-6">
         <div className="mx-auto max-w-7xl">
           <h2 className="text-4xl font-bold mb-10 text-center tracking-wide">
@@ -482,7 +507,7 @@ export function ProgramPage() {
           </h2>
 
           <div className="w-full overflow-x-auto rounded-2xl border border-white/5 bg-black/20 p-4 backdrop-blur-md">
-            {/* Headers */}
+            {/* Headers *//*}
             <div className="grid grid-cols-6 gap-[3px] min-w-[900px] mb-1 text-center font-bold">
               {["Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].map((d) => (
                 <div
@@ -494,7 +519,7 @@ export function ProgramPage() {
               ))}
             </div>
 
-            {/* Body */}
+            {/* Body *//*}
             <div className="grid-schedule grid grid-cols-6 gap-[3px] min-w-[900px] grid-rows-[repeat(14,minmax(36px,auto))]">
               {horas.map((hora, idx) => (
                 <Cell key={idx} theme="time" style={{ gridColumn: 1, gridRow: idx + 1 }} {...cellProps(`time-${idx}`)}>
@@ -521,6 +546,7 @@ export function ProgramPage() {
           </div>
         </div>
       </section>
+      */}
 
 
       {/* PONENTES 3D */}
