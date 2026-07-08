@@ -32,7 +32,7 @@ const navItems = [
 
 const announcementMessages = [
   "¡¡VENTAS EN ETAPA GENERAL!!",
-  "APROVECHA LA PROMOCION USCP",
+  "APROVECHA LA PROMOCIÓN USCP",
   "INSCRIPCIONES DISPONIBLES, ¡NO TE QUEDES FUERA!",
 ];
 
